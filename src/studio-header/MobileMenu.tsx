@@ -1,9 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Collapsible } from '@openedx/paragon';
 import { Link } from 'react-router-dom';
 
-const MobileMenu = ({ mainMenuDropdowns }) => (
+import type { HeaderBodyProps } from './types';
+
+type MobileMenuProps = Pick<HeaderBodyProps, 'mainMenuDropdowns'>;
+
+const MobileMenu = ({ mainMenuDropdowns = [] }: MobileMenuProps) => (
   <div
     className="ml-4 p-2 bg-light-100 border border-gray-200 small rounded"
     data-testid="mobile-menu"
@@ -32,19 +35,5 @@ const MobileMenu = ({ mainMenuDropdowns }) => (
     </div>
   </div>
 );
-
-MobileMenu.propTypes = {
-  mainMenuDropdowns: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    buttonTitle: PropTypes.node,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      href: PropTypes.string,
-      title: PropTypes.node,
-    })),
-  })),
-};
-MobileMenu.defaultProps = {
-  mainMenuDropdowns: [],
-};
 
 export default MobileMenu;

@@ -74,10 +74,6 @@ const props: React.ComponentProps<typeof StudioHeader> = {
   outlineLink: 'tEsTLInK',
   searchButtonAction: null,
   isNewHomePage: true,
-  // These default values shouldn't be needed but typescript is confused by propTypes; can remove after converting
-  // from propTypes to TypeScript:
-  containerProps: {},
-  isHiddenMainMenu: false,
 };
 
 describe('Header', () => {

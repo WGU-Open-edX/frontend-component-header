@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
+import { useIntl } from '@edx/frontend-platform/i18n';
 import {
   OverlayTrigger,
   Tooltip,
@@ -8,49 +7,40 @@ import {
 import { Link } from 'react-router-dom';
 
 import messages from './messages';
+import type { HeaderBodyProps } from './types';
+
+type CourseLockUpProps = Pick<HeaderBodyProps, 'outlineLink' | 'org' | 'number' | 'title'>;
 
 const CourseLockUp = ({
   outlineLink,
   org,
   number,
   title,
-  // injected
-  intl,
-}) => (
-  <OverlayTrigger
-    placement="bottom"
-    overlay={(
-      <Tooltip id="course-lock-up">
-        {title}
-      </Tooltip>
-    )}
-  >
-    <Link
-      className="course-title-lockup mr-2"
-      to={outlineLink}
-      aria-label={intl.formatMessage(messages['header.label.courseOutline'])}
-      data-testid="course-lock-up-block"
+}: CourseLockUpProps) => {
+  const intl = useIntl();
+
+  return (
+    <OverlayTrigger
+      placement="bottom"
+      overlay={(
+        <Tooltip id="course-lock-up">
+          {title}
+        </Tooltip>
+      )}
     >
-      <span className="d-block small m-0 text-gray-800" data-testid="course-org-number">{org} {number}</span>
-      <span className="d-block m-0 font-weight-bold text-gray-800" data-testid="course-title">{title}</span>
-    </Link>
-  </OverlayTrigger>
-);
-
-CourseLockUp.propTypes = {
-  number: PropTypes.string,
-  org: PropTypes.string,
-  title: PropTypes.string,
-  outlineLink: PropTypes.string,
-  // injected
-  intl: intlShape.isRequired,
+      <Link
+        className="course-title-lockup mr-2"
+        // `{}` keeps the old behavior for a missing outlineLink (link to the current location);
+        // `''` would resolve to the route root instead.
+        to={outlineLink ?? {}}
+        aria-label={intl.formatMessage(messages['header.label.courseOutline'])}
+        data-testid="course-lock-up-block"
+      >
+        <span className="d-block small m-0 text-gray-800" data-testid="course-org-number">{org} {number}</span>
+        <span className="d-block m-0 font-weight-bold text-gray-800" data-testid="course-title">{title}</span>
+      </Link>
+    </OverlayTrigger>
+  );
 };
 
-CourseLockUp.defaultProps = {
-  number: null,
-  org: null,
-  title: null,
-  outlineLink: null,
-};
-
-export default injectIntl(CourseLockUp);
+export default CourseLockUp;

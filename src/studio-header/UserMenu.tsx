@@ -1,22 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
+import { useIntl } from '@edx/frontend-platform/i18n';
 import {
   Avatar,
 } from '@openedx/paragon';
 import NavDropdownMenu from './NavDropdownMenu';
 import getUserMenuItems from './utils';
+import type { HeaderBodyProps } from './types';
+
+type UserMenuProps = Pick<
+HeaderBodyProps,
+'username' | 'studioBaseUrl' | 'logoutUrl' | 'authenticatedUserAvatar' | 'isMobile' | 'isAdmin'
+>;
 
 const UserMenu = ({
   username,
   studioBaseUrl,
   logoutUrl,
   authenticatedUserAvatar,
-  isMobile,
-  isAdmin,
-  // injected
-  intl,
-}) => {
+  isMobile = false,
+  isAdmin = false,
+}: UserMenuProps) => {
+  const intl = useIntl();
   const avatar = authenticatedUserAvatar ? (
     <img
       className="d-block w-100 h-100"
@@ -48,22 +52,4 @@ const UserMenu = ({
   );
 };
 
-UserMenu.propTypes = {
-  username: PropTypes.string,
-  studioBaseUrl: PropTypes.string.isRequired,
-  logoutUrl: PropTypes.string.isRequired,
-  authenticatedUserAvatar: PropTypes.string,
-  isMobile: PropTypes.bool,
-  isAdmin: PropTypes.bool,
-  // injected
-  intl: intlShape.isRequired,
-};
-
-UserMenu.defaultProps = {
-  isMobile: false,
-  isAdmin: false,
-  authenticatedUserAvatar: null,
-  username: null,
-};
-
-export default injectIntl(UserMenu);
+export default UserMenu;

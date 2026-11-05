@@ -1,16 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Dropdown,
   DropdownButton,
 } from '@openedx/paragon';
 import { Link } from 'react-router-dom';
 
+import type { MainMenuDropdown } from './types';
+
+/**
+ * Same shape as MainMenuDropdown: HeaderBody passes each main-menu dropdown straight into
+ * NavDropdownMenu, and UserMenu builds one the same way, so the two must not diverge.
+ */
+type NavDropdownMenuProps = MainMenuDropdown;
+
 const NavDropdownMenu = ({
   id,
   buttonTitle,
   items,
-}) => (
+}: NavDropdownMenuProps) => (
   <DropdownButton
     id={id}
     title={buttonTitle}
@@ -29,14 +36,5 @@ const NavDropdownMenu = ({
     ))}
   </DropdownButton>
 );
-
-NavDropdownMenu.propTypes = {
-  id: PropTypes.string.isRequired,
-  buttonTitle: PropTypes.node.isRequired,
-  items: PropTypes.arrayOf(PropTypes.shape({
-    href: PropTypes.string.isRequired,
-    title: PropTypes.node.isRequired,
-  })).isRequired,
-};
 
 export default NavDropdownMenu;

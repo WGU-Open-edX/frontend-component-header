@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import Responsive from 'react-responsive';
 import { AppContext } from '@edx/frontend-platform/react';
 import { ensureConfig } from '@edx/frontend-platform';
 
 import MobileHeader from './MobileHeader';
 import HeaderBody from './HeaderBody';
+import type { StudioHeaderProps } from './types';
 
 ensureConfig([
   'STUDIO_BASE_URL',
@@ -16,9 +16,16 @@ ensureConfig([
 ], 'Studio Header component');
 
 const StudioHeader = ({
-  number, org, title, containerProps, isHiddenMainMenu, mainMenuDropdowns,
-  outlineLink, searchButtonAction, isNewHomePage,
-}) => {
+  number = '',
+  org = '',
+  title,
+  containerProps = {},
+  isHiddenMainMenu = false,
+  mainMenuDropdowns = [],
+  outlineLink,
+  searchButtonAction,
+  isNewHomePage,
+}: StudioHeaderProps) => {
   // @ts-expect-error - frontend-platform doesn't yet have type information :/
   const { authenticatedUser, config } = useContext(AppContext);
   const props = {
@@ -50,35 +57,6 @@ const StudioHeader = ({
       </Responsive>
     </div>
   );
-};
-
-StudioHeader.propTypes = {
-  number: PropTypes.string,
-  org: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  containerProps: HeaderBody.propTypes.containerProps,
-  isHiddenMainMenu: PropTypes.bool,
-  mainMenuDropdowns: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    buttonTitle: PropTypes.node,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      href: PropTypes.string,
-      title: PropTypes.node,
-    })),
-  })),
-  outlineLink: PropTypes.string,
-  searchButtonAction: PropTypes.func,
-  isNewHomePage: PropTypes.bool.isRequired,
-};
-
-StudioHeader.defaultProps = {
-  number: '',
-  org: '',
-  containerProps: {},
-  isHiddenMainMenu: false,
-  mainMenuDropdowns: [],
-  outlineLink: null,
-  searchButtonAction: null,
 };
 
 export default StudioHeader;

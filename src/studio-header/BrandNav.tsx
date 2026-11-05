@@ -1,12 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import type { HeaderBodyProps } from './types';
+
+type BrandNavProps = Pick<HeaderBodyProps, 'studioBaseUrl' | 'logo' | 'logoAltText'>;
 
 const BrandNav = ({
   studioBaseUrl,
   logo,
   logoAltText,
-}) => (
+}: BrandNavProps) => (
   <Link to={studioBaseUrl}>
     <img
       src={logo}
@@ -15,11 +18,5 @@ const BrandNav = ({
     />
   </Link>
 );
-
-BrandNav.propTypes = {
-  studioBaseUrl: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
-  logoAltText: PropTypes.string.isRequired,
-};
 
 export default BrandNav;

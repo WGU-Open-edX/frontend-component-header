@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import classNames from 'classnames';
 import {
@@ -18,28 +17,29 @@ import UserMenu from './UserMenu';
 import BrandNav from './BrandNav';
 import NavDropdownMenu from './NavDropdownMenu';
 import messages from './messages';
+import type { HeaderBodyProps } from './types';
 
 const HeaderBody = ({
   logo,
   logoAltText,
-  number,
-  org,
-  title,
+  number = '',
+  org = '',
+  title = '',
   username,
-  isAdmin,
+  isAdmin = false,
   studioBaseUrl,
   logoutUrl,
   authenticatedUserAvatar,
-  isMobile,
+  isMobile = false,
   setModalPopupTarget,
   toggleModalPopup,
-  isModalPopupOpen,
-  isHiddenMainMenu,
-  mainMenuDropdowns,
+  isModalPopupOpen = false,
+  isHiddenMainMenu = false,
+  mainMenuDropdowns = [],
   outlineLink,
   searchButtonAction,
-  containerProps,
-}) => {
+  containerProps = {},
+}: HeaderBodyProps) => {
   const intl = useIntl();
 
   const renderBrandNav = (
@@ -52,7 +52,7 @@ const HeaderBody = ({
     />
   );
 
-  const { className: containerClassName, ...restContainerProps } = containerProps || {};
+  const { className: containerClassName, ...restContainerProps } = containerProps;
 
   return (
     <Container
@@ -142,55 +142,6 @@ const HeaderBody = ({
       </ActionRow>
     </Container>
   );
-};
-
-HeaderBody.propTypes = {
-  studioBaseUrl: PropTypes.string.isRequired,
-  logoutUrl: PropTypes.string.isRequired,
-  setModalPopupTarget: PropTypes.func,
-  toggleModalPopup: PropTypes.func,
-  isModalPopupOpen: PropTypes.bool,
-  number: PropTypes.string,
-  org: PropTypes.string,
-  title: PropTypes.string,
-  logo: PropTypes.string,
-  logoAltText: PropTypes.string,
-  authenticatedUserAvatar: PropTypes.string,
-  username: PropTypes.string,
-  isAdmin: PropTypes.bool,
-  isMobile: PropTypes.bool,
-  isHiddenMainMenu: PropTypes.bool,
-  mainMenuDropdowns: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    buttonTitle: PropTypes.node,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      href: PropTypes.string,
-      title: PropTypes.node,
-    })),
-  })),
-  outlineLink: PropTypes.string,
-  searchButtonAction: PropTypes.func,
-  containerProps: PropTypes.shape(Container.propTypes),
-};
-
-HeaderBody.defaultProps = {
-  setModalPopupTarget: null,
-  toggleModalPopup: null,
-  isModalPopupOpen: false,
-  logo: null,
-  logoAltText: null,
-  number: '',
-  org: '',
-  title: '',
-  authenticatedUserAvatar: null,
-  username: null,
-  isAdmin: false,
-  isMobile: false,
-  isHiddenMainMenu: false,
-  mainMenuDropdowns: [],
-  outlineLink: null,
-  searchButtonAction: null,
-  containerProps: {},
 };
 
 export default HeaderBody;
