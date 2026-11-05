@@ -6,6 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import type { MainMenuDropdown } from './types';
+import { getItemLinkProps } from './utils';
 
 /**
  * Same shape as MainMenuDropdown: HeaderBody passes each main-menu dropdown straight into
@@ -29,6 +30,7 @@ const NavDropdownMenu = ({
         as={Link}
         key={`${item.title}-dropdown-item`}
         to={item.href}
+        {...getItemLinkProps(item)}
         className="small"
       >
         {item.title}

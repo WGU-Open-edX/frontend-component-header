@@ -12,6 +12,10 @@ export interface NavDropdownMenuItem {
   href: string;
   /** Non-null: NavDropdownMenu renders it as the link text and uses it in the React key. */
   title: NonNullable<React.ReactNode>;
+  /** Where to open the link, e.g. `_blank` for a new tab. Omit to open it in the current tab. */
+  target?: React.HTMLAttributeAnchorTarget;
+  /** Defaults to `noopener noreferrer` when `target` is `_blank`; set it to override. */
+  rel?: string;
 }
 
 /** A top-level dropdown in the header's main menu (desktop nav and mobile menu). */

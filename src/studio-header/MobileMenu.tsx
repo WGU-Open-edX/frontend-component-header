@@ -3,6 +3,7 @@ import { Collapsible } from '@openedx/paragon';
 import { Link } from 'react-router-dom';
 
 import type { HeaderBodyProps } from './types';
+import { getItemLinkProps } from './utils';
 
 type MobileMenuProps = Pick<HeaderBodyProps, 'mainMenuDropdowns'>;
 
@@ -23,7 +24,7 @@ const MobileMenu = ({ mainMenuDropdowns = [] }: MobileMenuProps) => (
             <ul className="p-0" style={{ listStyleType: 'none' }}>
               {items.map(item => (
                 <li className="mobile-menu-item">
-                  <Link to={item.href}>
+                  <Link to={item.href} {...getItemLinkProps(item)}>
                     {item.title}
                   </Link>
                 </li>

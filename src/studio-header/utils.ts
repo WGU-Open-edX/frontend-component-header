@@ -1,5 +1,6 @@
 import { getConfig } from '@edx/frontend-platform';
 import messages from './messages';
+import type { NavDropdownMenuItem } from './types';
 
 const getUserMenuItems = ({
   studioBaseUrl,
@@ -35,3 +36,13 @@ const getUserMenuItems = ({
 };
 
 export default getUserMenuItems;
+
+/**
+ * Returns the `target`/`rel` attributes for a menu item link. NavDropdownMenu and MobileMenu
+ * both render the same items, so the safe `rel` default for `_blank` lives here to keep the
+ * desktop and mobile menus behaving the same.
+ */
+export const getItemLinkProps = ({ target, rel }: Pick<NavDropdownMenuItem, 'target' | 'rel'>) => ({
+  target,
+  rel: rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined),
+});
